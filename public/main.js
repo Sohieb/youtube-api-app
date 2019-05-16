@@ -109,11 +109,31 @@ function getChannel(channel) {
             href="https://youtube.com/${channel.snippet.customUrl}">Visit Channel</a>
         `;
         showChannelData(output);
+
+        const playlistId = channel.contentDetails.relatedPlaylists.uploads;
+        requestVideoPlaylist(playlistId);
     })
         .catch(err => alert('No Channel By That Name'));
 }
 
 
+// Add commas to number
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+
+//
+function requestVideoPlaylist(playlistId) {
+    const requestOptions = {
+        playlistId: playlistId,
+        part: 'snippet',
+        maxResults: 10
+    };
+
+    const request = gapi.client.youtube.playlistItems.list(requestOptions);
+
+    request.execute(res => {
+        console.log(res);
+    });
 }
