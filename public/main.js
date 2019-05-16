@@ -83,6 +83,15 @@ function showChannelData(data) {
 
 // Get channel from API
 function getChannel(channel) {
+    /////// Just testing ramdon stuff
+    gapi.client.youtube.search.list({
+        part="snippet",
+        type="channel",
+        q=channel
+    }).then(res => {
+        console.log(res);
+    });
+    ///////
     gapi.client.youtube.channels.list({
         part: 'snippet,contentDetails,statistics',
         forUsername: channel
