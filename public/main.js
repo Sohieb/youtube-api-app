@@ -85,9 +85,9 @@ function showChannelData(data) {
 function getChannel(channel) {
     /////// Just testing ramdon stuff
     gapi.client.youtube.search.list({
-        part="snippet",
-        type="channel",
-        q=channel
+        part: 'snippet',
+        type: 'channel',
+        q: channel
     }).then(res => {
         console.log(res);
     });
