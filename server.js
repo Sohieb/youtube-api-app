@@ -2,8 +2,8 @@ const express = require('express');
 const path = require('path');
 const app = express();
 
-// // public folder to store assets
-// app.use(express.static(__dirname + '/public'));
+// public folder to store assets
+app.use(express.static(__dirname + '/public'));
 
 // routes for app
 app.get('/', function (req, res) {
