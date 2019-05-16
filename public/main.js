@@ -87,9 +87,9 @@ function getChannel(channel) {
         part: 'snippet,contentDetails,statistics',
         forUsername: channel
     }).then(response => {
-        console.log(response);
+        // console.log(response);
         const channel = response.result.items[0];
-        console.log(channel);
+        // console.log(channel);
         const output = `
             <ul class="collection">
                 <li class="collection-item">Title: 
@@ -134,6 +134,28 @@ function requestVideoPlaylist(playlistId) {
     const request = gapi.client.youtube.playlistItems.list(requestOptions);
 
     request.execute(res => {
-        console.log(res);
+        // console.log(res);
+        const playlistItems = res.result.items;
+        if (playlistItems) {
+            let output = '<h4 class="center-align">Latest videos</h4>'
+
+            // Loop through videos and append output
+            playlistItems.forEach(item => {
+                const videoId = item.snippet.resourceId.videoId;
+
+                output += `
+                    <div class="col s3">
+                    <iframe width="100%" height="auto" src="https://www.youtube.com/embed/${videoId}" 
+                    frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen></iframe>
+                    </div>
+                `;
+            });
+
+            // Output videos
+            videoContainer.innerHTML = output;
+        } else {
+            videoContainer.innerHTML = 'No Uploaded Videos';
+        }
     });
 }
